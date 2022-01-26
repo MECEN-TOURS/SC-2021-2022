@@ -14,9 +14,22 @@ from typing import Any, Optional, Generator
 
 def _case_valide(valeur: Optional[int]) -> bool:
     """Vérifie si on prend les valeurs None, 1, 2, 3 ou 4.
-    
+
     Exemples:
-    >>> _case_valide(1)                                                                                 True                                                                                                 >>> _case_valide(2)                                                                                 True                                                                                                 >>> _case_valide(3)                                                                                 True                                                                                                 >>> _case_valide(4)                                                                                 True                                                                                                 >>> _case_valide(None)                                                                               True                                                                                                 >>> _case_valide("5")                                                                               False                                                                                               >>> _case_valide(5)                                                                                 False
+    >>> _case_valide(1)
+    True
+    >>> _case_valide(2)
+    True
+    >>> _case_valide(3)
+    True
+    >>> _case_valide(4)
+    True
+    >>> _case_valide(None)
+    True
+    >>> _case_valide("5")
+    False
+    >>> _case_valide(5)
+    False
     """
     if valeur is None:
         return True
@@ -40,7 +53,7 @@ class Grille:
         if any(not _case_valide(case) for case in cases):
             raise ValueError("Les cases ne peuvent contenir que None 1 2 3 ou 4!")
         self._cases = cases
-        
+
     def __eq__(self, autre: Any) -> bool:
         if type(autre) != type(self):
             return False
@@ -130,7 +143,7 @@ def _cherche_premier_none(valeurs: list[Optional[int]]) -> int:
     raise ValueError("Il n'y a pas de None dans cette liste.")
 
 
-def _remplit_une_case_liste(grille: Grille) -> list[Grille]:
+def _remplit_une_case(grille: Grille) -> Generator[Grille, None, None]:
     cases = [case for case in grille]
     try:
         indice = _cherche_premier_none(cases)
@@ -142,7 +155,9 @@ def _remplit_une_case_liste(grille: Grille) -> list[Grille]:
             nouvelle[indice] = valeur
             yield Grille(cases=nouvelle)
 
-def _remplit_une_case(grille: Grille) -> Generator[Grille, None, None]:
+
+def _remplit_une_case_liste(grille: Grille) -> list[Grille]:
+    """Version obsolète renvoyant une liste."""
     cases = [case for case in grille]
     try:
         indice = _cherche_premier_none(cases)
@@ -152,6 +167,7 @@ def _remplit_une_case(grille: Grille) -> Generator[Grille, None, None]:
     for valeur, nouvelle in zip(range(1, 5), nouvelles):
         nouvelle[indice] = valeur
     return [Grille(cases=nouvelle) for nouvelle in nouvelles]
+
 
 def calcule_solutions(grille: Grille) -> list[Grille]:
     if not est_valide(grille):
