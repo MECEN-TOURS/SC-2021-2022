@@ -13,6 +13,7 @@ from lib import (
     _verifie_probleme_carres,
     est_complete,
     _remplit_une_case,
+    _remplit_une_case_liste,
     calcule_solutions,
     _cherche_premier_none,
 )
@@ -138,26 +139,35 @@ def test_est_complete():
 
 def test_remplit_une_case_cas_complet():
     grille_pleine = Grille(cases=[1, 2, 3, 4, 3, 4, 1, 2, 2, 1, 4, 3, 4, 3, 2, 1])
-    assert remplit_une_case(grille=grille_pleine) == []
+    generateur = _remplit_une_case(grille=grille_pleine)
+    with pytest.raises(StopIteration):
+        next(generateur)
 
 
 def test_remplit_une_case():
     grille_depart = Grille(
         cases=[1, 2, 3, 4, 4, None, 2, 1, 2, 1, None, 3, 3, None, 1, 2]
     )
-    assert list(remplit_une_case(grille=grille_depart)) == [
-        Grille(cases=[1, 2, 3, 4, 4, 1, 2, 1, 2, 1, None, 3, 3, None, 1, 2]),
-        Grille(cases=[1, 2, 3, 4, 4, 2, 2, 1, 2, 1, None, 3, 3, None, 1, 2]),
-        Grille(cases=[1, 2, 3, 4, 4, 3, 2, 1, 2, 1, None, 3, 3, None, 1, 2]),
-        Grille(cases=[1, 2, 3, 4, 4, 4, 2, 1, 2, 1, None, 3, 3, None, 1, 2]),
-    ]
+    generateur = _remplit_une_case(grille=grille_depart)
+    assert next(generateur) == Grille(
+        cases=[1, 2, 3, 4, 4, 1, 2, 1, 2, 1, None, 3, 3, None, 1, 2]
+    )
+    assert next(generateur) == Grille(
+        cases=[1, 2, 3, 4, 4, 2, 2, 1, 2, 1, None, 3, 3, None, 1, 2]
+    )
+    assert next(generateur) == Grille(
+        cases=[1, 2, 3, 4, 4, 3, 2, 1, 2, 1, None, 3, 3, None, 1, 2]
+    )
+    assert next(generateur) == Grille(
+        cases=[1, 2, 3, 4, 4, 4, 2, 1, 2, 1, None, 3, 3, None, 1, 2]
+    )
 
 
 def test_remplit_une_case_liste():
     grille_depart = Grille(
         cases=[1, 2, 3, 4, 4, None, 2, 1, 2, 1, None, 3, 3, None, 1, 2]
     )
-    assert remplit_une_case(grille=grille_depart) == [
+    assert _remplit_une_case_liste(grille=grille_depart) == [
         Grille(cases=[1, 2, 3, 4, 4, 1, 2, 1, 2, 1, None, 3, 3, None, 1, 2]),
         Grille(cases=[1, 2, 3, 4, 4, 2, 2, 1, 2, 1, None, 3, 3, None, 1, 2]),
         Grille(cases=[1, 2, 3, 4, 4, 3, 2, 1, 2, 1, None, 3, 3, None, 1, 2]),
