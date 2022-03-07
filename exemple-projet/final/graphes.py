@@ -51,6 +51,7 @@ def calcule_chemin(
     """Détermine un chemin de depart à arrivee dans le graphe.
     Si un tel chemin n'existe pas l'exception PasDeChemin est soulevée.
     On trouve toujours un chemin sans boucle.
+
     Exemples:
     >>> calcule_chemin(
     ...         depart=1,
