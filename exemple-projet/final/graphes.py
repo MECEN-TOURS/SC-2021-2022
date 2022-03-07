@@ -1,17 +1,20 @@
 """Description.
 
 Librairie de gestion des graphes.
+
+Générique autour du type S représentant un sommet.
+Expose la fonction calcule_chemin et l'exception PasDeChemin.
 """
 from typing import TypeVar
 
 S = TypeVar("S")
-A = tuple[S, S]
+
 
 class PasDeChemin(Exception):
     pass
 
 
-def _calcule_voisins(depart: S, arretes: list[A]) -> list[S]:
+def _calcule_voisins(depart: S, arretes: list[tuple[S, S]]) -> list[S]:
     """Renvoie la liste des sommets accessibles en un pas depuis depart.
     Exemples:
     >>> _calcule_voisins(depart=1, arretes=[(1, 2), (1, 3)])
@@ -31,7 +34,7 @@ def _elague_sommets(a_enlever: S, sommets: list[S]) -> list[S]:
     return [etat for etat in sommets if a_enlever != etat]
 
 
-def _elague_arretes(a_enlever: S, arretes: list[A]) -> list[A]:
+def _elague_arretes(a_enlever: S, arretes: list[tuple[S, S]]) -> list[tuple[S, S]]:
     """Enleve les références à a_enlever de la liste des arrêtes.
     Exemples
     >>> _elague_arretes(a_enlever=1, arretes=[(1, 1), (1, 2), (1, 3)])
@@ -43,7 +46,7 @@ def _elague_arretes(a_enlever: S, arretes: list[A]) -> list[A]:
 
 
 def calcule_chemin(
-    depart: S, arrivee: S, sommets: list[S], arretes: list[A]
+    depart: S, arrivee: S, sommets: list[S], arretes: list[tuple[S, S]]
 ) -> list[S]:
     """Détermine un chemin de depart à arrivee dans le graphe.
     Si un tel chemin n'existe pas l'exception PasDeChemin est soulevée.
