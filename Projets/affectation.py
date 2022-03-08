@@ -7,33 +7,23 @@ Script effectuant la répartition des sujets au élèves.
 import random as rd
 from rich.console import Console
 
-ELEVES = (
-    "Cornet Hugo",
-    "Diot Pierre-Emmanuel",
-    "Le Halper Guillaume",
-    "Mancer Djawed",
-    "Fuchez Thibault",
-    "Chaveneau Lucas",
-    "Lefafta Rémi",
-    "Feteira Jeremy",
-    "Corre Guillaume",
-    "Lenoir Yoan",
-    "Cardoso Jeremy",
-    "Boudou Manon",
-    "Billon Melissa",
-    "Guichard Allan",
-    "Vickos Gloria",
-    "Li Marine",
-    "Meyer Marie",
-    "Gendron Marine",
-    "Ducamp Axel",
+GROUPES = (
+    ("Baptiste Nepveux", "Mathieu Veron"),
+    ("Alexandre Jeanne", " Pierre Larcher"),
+    ("Maurine Diot", " Laeticia Miguel"),
+    ("Toky Cédric Lebon", " Julien Remondeau"),
+    ("Tasnim El Tahir", " Ilona Rateau"),
+    ("Léa Brasseur", " Benjamin Chauvet"),
+    ("Dragomir Gudumac", " Verne Vincent"),
+    ("Thomas Bisson", " Alexis Vialatte"),
+    ("Anne-Sophie Nunes", " Manon Valliot", " Merve Yildirim"),
 )
 
-SUJETS = [f"{numero+1:02}" for numero, _ in enumerate(ELEVES)]
-rd.seed(123456789)
+SUJETS = [f"{numero+1:02}" for numero in range(1, 14)]
+rd.seed(2022)
 rd.shuffle(SUJETS)
 
 CS = Console()
 
-AFFECTATION = {eleve: sujet for eleve, sujet in zip(ELEVES, SUJETS)}
+AFFECTATION = {eleve: sujet for eleve, sujet in zip(GROUPES, SUJETS)}
 CS.print(AFFECTATION)

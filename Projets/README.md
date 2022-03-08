@@ -14,12 +14,14 @@
 
 On lancera le script `affectation.py`  pour faire correspondre sujet et groupe.
 
-# Consigne
+# Consignes
 
 Les sujets seront constitués d'un exemple de problème qu'il faudra d'abord généraliser.
-On fournira ensuite un projet python complet (suivant l'exemple fourni aux deux dernières séances) permettant de résoudre ces problèmes.
+
+On fournira ensuite un projet python complet (on s'inspirera de l'exemple fourni aux deux dernières séances) permettant de résoudre ces problèmes.
 
 En particulier on devra avoir:
 
-- une librairie typée/testée/documentée.
-- une interface en ligne de commande dont on pourra faire une démonstration via un fichier `README.md`.
+- une gestion des dépendances avec `poetry`.
+- une librairie typée/testée/documentée, on pourra entre autre utiliser `mypy`, `pytest` (et `pytest-cov` pour la couverture).
+- une interface en ligne de commande (via `typer` par exemple) dont on pourra faire une démonstration via un fichier `README.md`.
